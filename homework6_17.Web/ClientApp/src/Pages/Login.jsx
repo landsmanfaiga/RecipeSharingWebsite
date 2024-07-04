@@ -13,6 +13,7 @@ const Login = () => {
     })
     const { email, password } = user;
     const [isValidLogin, setIsValidLogin] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const onChange = (e) => {
         const copy = { ...user };
@@ -22,13 +23,23 @@ const Login = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         const { data } = await axios.post('/api/user/login', user);
         const isValid = Boolean(data);
         setIsValidLogin(isValid);
         if (isValid) {
             setUser(data);
+            setIsLoading(false);
             navigate('/');
         }
+    }
+
+    if (isLoading) {
+        return <div className='container' style={{ marginTop: 300 }}>
+            <div className='d-flex w-100 justify-content-center align-self-center'>
+                <h1>Logging in...</h1>
+            </div>
+        </div>
     }
 
     return (

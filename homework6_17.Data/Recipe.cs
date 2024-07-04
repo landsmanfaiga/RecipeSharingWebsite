@@ -22,6 +22,5 @@ namespace homework6_17.Data
 
 
 
-
     }
 }

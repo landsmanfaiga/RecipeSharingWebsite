@@ -7,11 +7,8 @@ const AddRecipe = () => {
 
     const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
-    const [recipe, setRecipe] = useState({
-        title: '',
-        imageUrl: '',
-        sharePublicly: false
-    });
+    const [title, setTitle] = useState('');
+    const [sharePublicly, setSharePublicly] = useState(false);
     const [category, setCategory] = useState('');
     const [categoryId, setCategoryId] = useState('');
 
@@ -64,10 +61,8 @@ const AddRecipe = () => {
         getCategories();
     },[])
 
-    const onTextChange = (e) => {
-        const copy = { ...recipe };
-        copy[e.target.name] = e.target.value;
-        setRecipe(copy);
+    const onTitleChange = (e) => {
+        setTitle(e.target.value);
     }
 
     const onAddClick = async (e) => {
@@ -75,12 +70,12 @@ const AddRecipe = () => {
         e.preventDefault();
 
         const recipe2 = {
-            title: recipe.title,
+            title: title,
             categoryId: categoryId,
             ingredients: JSON.stringify(Object.values(ingredients)),
             steps: JSON.stringify(Object.values(steps)),
             imageUrl: await toBase64(image),
-            sharePublicly: recipe.sharePublicly
+            sharePublicly: sharePublicly
         }
 
         await axios.post('/api/recipe/addrecipe', recipe2);
@@ -88,9 +83,7 @@ const AddRecipe = () => {
     }
 
     const setShare = () => {
-        const copy = { ...recipe };
-        copy.sharePublicly = !copy.sharePublicly;
-        setRecipe(copy);
+        setSharePublicly(!sharePublicly);
     }
 
     const onCategoryChange = (e) => {
@@ -103,7 +96,6 @@ const AddRecipe = () => {
         imageUrl = URL.createObjectURL(image);
     }
 
-    const { title, sharePublicly } = recipe;
 
     return (<>
         <div className="container">
@@ -114,7 +106,7 @@ const AddRecipe = () => {
                         <form onSubmit={onAddClick}>
                             <div className="mb-3">
                                 <label className="form-label">Recipe Title</label>
-                                <input type="text" className="form-control" name="title" value={title} onChange={onTextChange} />
+                                <input type="text" className="form-control" name="title" value={title} onChange={onTitleChange} />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Category</label>

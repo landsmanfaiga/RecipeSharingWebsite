@@ -31,5 +31,16 @@ namespace homework6_17.Web.Controllers
             var repo = new RecipeRepo(_connectionString);
             repo.AddRecipe(recipe);
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("getrecipesforme")]
+        public List<Recipe> GetRecipesForMe()
+        {
+            var repo1 = new UserRepo(_connectionString);
+            int id = repo1.GetByEmail(User.Identity.Name).Id;
+            var repo2 = new RecipeRepo(_connectionString);
+            return repo2.GetRecipesById(id);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace homework6_17.Data
         private readonly string _connectionString;
         public RecipeRepo(string connectionString)
         {
-            _connectionString = connectionString; 
+            _connectionString = connectionString;
         }
 
         public List<Recipe> GetAll()
@@ -27,5 +27,12 @@ namespace homework6_17.Data
             context.Recipes.Add(recipe);
             context.SaveChanges();
         }
+
+        public List<Recipe> GetRecipesById(int id)
+        {
+            var context = new RecipeDataContext(_connectionString);
+            return context.Recipes.Include(r => r.Category).Where(r => r.Category.UserId == id).ToList();
+        }
     }
+
 }
