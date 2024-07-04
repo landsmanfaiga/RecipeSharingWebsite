@@ -9,6 +9,7 @@ import Categories from './Pages/Categories';
 import AddRecipe from './Pages/AddRecipe';
 import MyRecipes from './Pages/MyRecipes';
 
+import PrivateRoute from './components/PrivateRoute';
 import { UserContextComponent } from './UserContext';
 
 const App = () => {
@@ -20,9 +21,18 @@ const App = () => {
                     <Route path='/signup' element={<Signup />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/logout' element={<Logout />} />
-                    <Route path='/categories' element={<Categories />} />
-                    <Route path='/addrecipe' element={<AddRecipe />} />
-                    <Route path='/myrecipes' element={<MyRecipes/> }/>
+                    <Route path='/categories' element={
+                        <PrivateRoute>
+                            <Categories />
+                        </PrivateRoute>} />
+                    <Route path='/addrecipe' element={
+                        <PrivateRoute>
+                            <AddRecipe />
+                        </PrivateRoute>} />
+                    <Route path='/myrecipes' element={
+                        <PrivateRoute>
+                            <MyRecipes />
+                        </PrivateRoute>} />
             </Routes>
             </Layout>
         </UserContextComponent>
