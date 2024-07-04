@@ -6,12 +6,13 @@ const RecipePreview = ({ id, title, imageUrl, category, ingredients, steps, shar
         <div className="col-md-4 mb-4" key={id}>
             <div className="card shadow-sm h-200">
                 <div className="card-body d-flex flex-column">
-                    {fromAdd && <h3 class="text-center">Recipe Preview</h3>}
+                    {fromAdd && <h3 className="text-center">Recipe Preview</h3>}
                     <div className="card shadow-sm h-100">
                         <div className="card-body d-flex flex-column">
                     <h3 className="text-center">{title}</h3>
                     <div className="d-flex justify-content-center mb-3">
-                        <img src={imageUrl} alt="Recipe Preview" className="img-fluid" />
+                                {fromAdd && <img src={imageUrl} alt="Recipe Preview" className="img-fluid" />}
+                                {!fromAdd && <img src={`/api/recipe/viewimage?imageUrl=${imageUrl}`} alt="Recipe Preview" className="img-fluid" />}
                             </div>
 
                             <div style={{ flex: "1 1 auto", overflowY: "auto" }}>

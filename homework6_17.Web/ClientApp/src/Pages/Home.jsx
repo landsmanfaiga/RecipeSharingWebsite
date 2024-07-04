@@ -11,7 +11,7 @@ const Home = () => {
     useEffect(() => {
         getRecipes();
         setIsLoading(false);
-    });
+    },[]);
     const getRecipes = async () => {
         const { data } = await axios.get('/api/recipe/getrecipes');
         setRecipes(data);
