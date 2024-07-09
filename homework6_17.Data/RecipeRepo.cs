@@ -33,6 +33,12 @@ namespace homework6_17.Data
             var context = new RecipeDataContext(_connectionString);
             return context.Recipes.Include(r => r.Category).Where(r => r.Category.UserId == id).ToList();
         }
+
+        public Recipe GetRecipe(int id)
+        {
+            var context = new RecipeDataContext(_connectionString);
+            return context.Recipes.Include(r => r.Category).FirstOrDefault(r => r.Id == id);
+        }
     }
 
 }

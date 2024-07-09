@@ -98,10 +98,10 @@ const AddRecipe = () => {
 
 
     return (<>
-        <div className="container">
+        <div className="container" style={{marginTop: 80}}>
             <div className="container mt-5 d-flex">
-                <div className="card shadow-sm">
-                    <div className="card-body">
+                <div className="card shadow-sm" style={{ maxWidth: 600, width:500, borderRadius: 15, backgroundColor: "rgb(248, 249, 250)"}}>
+                    <div className="card-body" style={{ padding: 20 }} >
                         <h2 className="mb-4 text-center">Add a New Recipe</h2>
                         <form onSubmit={onAddClick}>
                             <div className="mb-3">
@@ -124,7 +124,7 @@ const AddRecipe = () => {
                                 </div>
                                 ))}
                                 
-                                <button type="button" className="btn btn-success" onClick={onAddIngredient}>Add Ingredient</button>
+                                <button type="button" className="btn btn-info" onClick={onAddIngredient}>Add Ingredient</button>
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Steps</label>
@@ -145,10 +145,11 @@ const AddRecipe = () => {
                                 <input className="form-check-input" type="checkbox" id="isPublic" onChange={setShare}/>
                                 <label className="form-check-label">Share this recipe publicly</label>
                             </div>
-                            <button type="submit" className="btn btn-primary w-100">Add Recipe</button>
+                            <button type="submit" className="btn btn-info w-100">Add Recipe</button>
                         </form>
                     </div>
                 </div>
+                
                 <RecipePreview id="0"
                     title={title}
                     imageUrl={imageUrl}

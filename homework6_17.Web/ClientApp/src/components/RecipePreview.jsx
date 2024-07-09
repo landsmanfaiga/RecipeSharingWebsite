@@ -1,4 +1,5 @@
 ﻿import { BsCheckCircleFill, BsListUl, BsFillPersonFill } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
 const RecipePreview = ({ id, title, imageUrl, category, ingredients, steps, sharePublicly, fromAdd }) => {
 
@@ -9,7 +10,7 @@ const RecipePreview = ({ id, title, imageUrl, category, ingredients, steps, shar
                     position: "sticky",
                     top: 20,
                     maxWidth: 400,
-                    width: "100%",
+                    width: "200%",
                     height: "fit-content",
                     borderRadius: 15,
                     backgroundColor: "rgb(248, 249, 250)"
@@ -72,9 +73,11 @@ const RecipePreview = ({ id, title, imageUrl, category, ingredients, steps, shar
         <div className="col-md-4 mb-4" key={id}>
             <div className="card shadow-sm h-200" style={{ borderRadius: 15 }}>
                 <div className="card-body d-flex flex-column" style={{ maxHeight: 500, overflow: "hidden" }}>
-                    <h3 className="text-center">{title}</h3>
+                        <Link to={`/recipe/${id}`} style={{ color: "rgb(35, 170, 200)", fontSize: 23, style: "underline"} }
+                    className="text-center">{title}
+                    </Link>                  
                     <div className="d-flex justify-content-center mb-3">
-                                <img src={`/api/recipe/viewimage?imageUrl=${imageUrl}`} alt="Recipe Preview" className="img-fluid"  style={{
+                        <img src={`/api/recipe/viewimage?imageUrl=${imageUrl}`} alt="Recipe Preview" className="img-fluid" style={{
                                 width: 150,
                                 height: 150,
                                 borderRadius: 10,

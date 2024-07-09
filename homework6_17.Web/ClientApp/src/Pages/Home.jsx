@@ -27,12 +27,16 @@ const Home = () => {
     
     return (
 
-        <div className="container">
-            <div className="container mt-5">
-                <div className="jumbotron bg-light p-5 rounded-lg mb-4 shadow">
-                    <h1 className="display-4">Welcome to Recipe Sharing App!</h1>
-                    <p className="lead">Explore the most delicious recipes shared by our community. Share your own recipes and get inspired by others!</p>
-                    <p>Here are some of the latest recipes:</p>
+        <div className="container" style={{ marginTop: 80 }}>
+            <div className="container mt-5" style={{
+                backgroundColor: "rgb(245, 245, 245)",
+                padding: 20,
+                borderRadius: 10
+            }}>
+                <div className="jumbotron bg-light p-5 rounded-lg mb-4 shadow" style={{ color: "rgb(35, 170, 200)" } }>
+                    <h1 className="display-4 d-flex w-100 justify-content-center align-self-center">Welcome to Recipes.com</h1>    
+                        <p className="lead d-flex w-80" style={{ textAlign: 'center' }}>Explore the most delicious recipes shared by our community. Share your own recipes and get inspired by others!</p>
+                    <p className="d-flex w-100 justify-content-center align-self-center">Here are some of the latest recipes:</p>
                 </div>
                 <div className="row">
                     {recipes.map(r => (

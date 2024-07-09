@@ -25,11 +25,11 @@ const Login = () => {
         e.preventDefault();
         setIsLoading(true);
         const { data } = await axios.post('/api/user/login', user);
+        setIsLoading(false);
         const isValid = Boolean(data);
         setIsValidLogin(isValid);
         if (isValid) {
             setUser(data);
-            setIsLoading(false);
             navigate('/');
         }
     }
@@ -47,15 +47,15 @@ const Login = () => {
             <main role="main" className="pb-3">
                 <div className="row">
                     <div className="col-md-6 offset-md-3 bg-light p-4 rounded shadow">
-                        <h3>Log in to your account</h3>
+                        <h3 style={{textAlign: 'center'} } >Log in to your account</h3>
                         {!isValidLogin && <span className='text-danger'>Invalid username/password. Please try again.</span>}
                         <form onSubmit={onSubmit}>
                             <input type="text" name="email" placeholder="Email" className="form-control" value={email} onChange={onChange} />
                             <br />
                             <input type="password" name="password" placeholder="Password" className="form-control" value={password} onChange={onChange} />
-                            <br /><button className="btn btn-primary">Login</button>
+                            <br /><button className="btn btn-info d-flex w-100 justify-content-center align-self-center">Login</button>
                         </form>
-                        <Link to="/signup">Sign up for a new account</Link>
+                        <Link to="/signup" className="d-flex w-100 justify-content-center align-self-center" style={{ color: "rgb(35, 170, 200)"} }>Sign up for a new account</Link>
                     </div>
                 </div>
             </main>

@@ -2,6 +2,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using homework6_17.Web.Models;
+using PuppeteerSharp;
+using RazorLight;
+using System.Reflection;
+using System.Text;
+using System.Text.Json;
 
 namespace homework6_17.Web.Controllers
 {
@@ -47,11 +53,70 @@ namespace homework6_17.Web.Controllers
             return repo2.GetRecipesById(id);
         }
 
+        [HttpGet]
+        [Route("getrecipe")]
+        public Recipe GetRecipe(int id)
+        {
+            var repo = new RecipeRepo(_connectionString);
+            return repo.GetRecipe(id);
+        }
+
         [HttpGet("ViewImage")]
         public IActionResult ViewImage(string imageUrl)
         {
             var bytes = System.IO.File.ReadAllBytes($"Uploads/{imageUrl}.jpg");
             return File(bytes, "image/jpeg");
+        }
+
+        [HttpGet("GeneratePdf")]
+        public async Task<IActionResult> GeneratePDF(string title, string ingredients, string steps, string image)
+
+        {
+            foreach (var i in ingredients.Split(',').ToList())
+            {
+                await Console.Out.WriteLineAsync(i);
+            }
+            await Console.Out.WriteLineAsync(image);
+            var model = new RecipePdfModel
+
+            {
+                Title = title,
+                Ingredients = ingredients.Split(',').ToList(),
+                Steps = steps.Split(",").ToList(),
+                ImageName = $"{image}.jpg"
+            };
+
+            var engine = new RazorLightEngineBuilder()
+
+                .UseFileSystemProject(Path.Combine(Directory.GetCurrentDirectory(), "Pages"))
+                .UseMemoryCachingProvider()
+                .Build();
+
+            string htmlString = await engine.CompileRenderAsync("/RecipePdf.cshtml", model);
+
+            var pdfBytes = await GeneratePdfAsync(htmlString);
+
+            return File(pdfBytes, "application/pdf", $"{title}.pdf");
+
+        }
+
+        private static async Task<byte[]> GeneratePdfAsync(string content)
+        {
+            await new BrowserFetcher().DownloadAsync();
+
+            using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+            {
+                Headless = true
+            });
+            using var page = await browser.NewPageAsync();
+            await page.SetContentAsync(content);
+
+            byte[] bytes = await page.PdfDataAsync(new PdfOptions
+            {
+                Format = PuppeteerSharp.Media.PaperFormat.A4
+            });
+
+            return bytes;
         }
 
         private byte[] ConvertFromBase64(string data)

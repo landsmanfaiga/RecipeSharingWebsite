@@ -19,10 +19,12 @@ const Categories = () => {
 
     const onSubmitClick = async (e) => {
         e.preventDefault();
-        await axios.post('/api/category/addcategory', { name: category });
-        setCategory('');
-        getCategories();
-        
+        if (category !== '') {
+            await axios.post('/api/category/addcategory', { name: category });
+            setCategory('');
+            getCategories();
+        }
+  
     }
 
     return (<>

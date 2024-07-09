@@ -8,6 +8,7 @@ import Logout from './Pages/Logout';
 import Categories from './Pages/Categories';
 import AddRecipe from './Pages/AddRecipe';
 import MyRecipes from './Pages/MyRecipes';
+import Recipe from './Pages/Recipe';
 
 import PrivateRoute from './components/PrivateRoute';
 import { UserContextComponent } from './UserContext';
@@ -18,6 +19,7 @@ const App = () => {
         <Layout>
             <Routes>
                     <Route path='/' element={<Home />} />
+                    <Route path='/recipe/:id' element={<Recipe />} />
                     <Route path='/signup' element={<Signup />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/logout' element={<Logout />} />

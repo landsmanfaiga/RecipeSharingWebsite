@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
             <header>
                 <nav className="navbar navbar-expand-sm navbar-dark fixed-top bg-dark border-bottom box-shadow">
                     <div className="container">
-                        <a className="navbar-brand">homework6_17</a>
+                        <a className="navbar-brand" style={{ fontFamily: "Arial, sans-serif", color: "rgb(35, 170, 200)", fontSize: 23 }}>Recipes.com</a>
                         <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
