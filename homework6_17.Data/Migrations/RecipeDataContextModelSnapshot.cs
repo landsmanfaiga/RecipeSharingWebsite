@@ -42,6 +42,30 @@ namespace homework6_17.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("homework6_17.Data.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Commenter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("homework6_17.Data.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -68,14 +92,9 @@ namespace homework6_17.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
                 });
@@ -116,6 +135,15 @@ namespace homework6_17.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("homework6_17.Data.Comment", b =>
+                {
+                    b.HasOne("homework6_17.Data.Recipe", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("homework6_17.Data.Recipe", b =>
                 {
                     b.HasOne("homework6_17.Data.Category", "Category")
@@ -124,20 +152,17 @@ namespace homework6_17.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("homework6_17.Data.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("homework6_17.Data.Category", b =>
                 {
                     b.Navigation("Recipes");
+                });
+
+            modelBuilder.Entity("homework6_17.Data.Recipe", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

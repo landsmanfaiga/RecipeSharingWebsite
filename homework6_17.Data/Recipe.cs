@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace homework6_17.Data
@@ -19,8 +20,17 @@ namespace homework6_17.Data
         public string ImageUrl { get; set; }
         public bool SharePublicly { get; set; }
 
+        [JsonIgnore]
+        public List<Comment> Comments { get; set; }
 
 
+    }
 
+    public class Comment
+    {
+        public int Id { get; set; }
+        public string Commenter {  get; set; }
+        public string Description {  get; set; }
+        public int RecipeId { get; set; }
     }
 }

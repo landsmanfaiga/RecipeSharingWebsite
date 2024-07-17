@@ -58,8 +58,34 @@ namespace homework6_17.Web.Controllers
         public Recipe GetRecipe(int id)
         {
             var repo = new RecipeRepo(_connectionString);
-            return repo.GetRecipe(id);
+            var repo1 = new UserRepo(_connectionString);
+            var user = repo1.GetByEmail(User.Identity.Name);
+            var userId = 0;
+            if (user != null)
+            {
+                userId = user.Id;
+            }
+             return repo.GetRecipe(id, userId);
         }
+
+
+        [HttpPost]
+        [Authorize]
+        [Route("addcomment")]
+        public void AddComment(Comment comment)
+        {
+            var repo = new RecipeRepo(_connectionString);
+            repo.AddComment(comment);
+        }
+
+        [HttpGet]
+        [Route("getcomments")]
+        public List<Comment> GetComments(int id)
+        {
+            var repo = new RecipeRepo(_connectionString);
+            return repo.GetComments(id);
+        }
+
 
         [HttpGet("ViewImage")]
         public IActionResult ViewImage(string imageUrl)

@@ -124,13 +124,13 @@ const AddRecipe = () => {
                                 </div>
                                 ))}
                                 
-                                <button type="button" className="btn btn-info" onClick={onAddIngredient}>Add Ingredient</button>
+                                <button type="button" className="btn btn-info" onClick={onAddIngredient} style={{ color: "rgb(245, 245, 245)" }}>Add Ingredient</button>
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Steps</label>
                                 {array2.map(y => (<textarea className="form-control mb-2" rows="3" value={steps[y]} onChange={(e) => onStepChange(e, y)} key={y}>
                                 </textarea>))}
-                                <button type="button" className="btn btn-info" onClick={onAddStep}>Add Step</button>
+                                <button type="button" className="btn btn-info" onClick={onAddStep} style={{ color: "rgb(245, 245, 245)" }}>Add Step</button>
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Upload Image</label>
@@ -145,7 +145,7 @@ const AddRecipe = () => {
                                 <input className="form-check-input" type="checkbox" id="isPublic" onChange={setShare}/>
                                 <label className="form-check-label">Share this recipe publicly</label>
                             </div>
-                            <button type="submit" className="btn btn-info w-100">Add Recipe</button>
+                            <button type="submit" className="btn btn-info w-100" style={{ color: "rgb(245, 245, 245)" } }>Add Recipe</button>
                         </form>
                     </div>
                 </div>

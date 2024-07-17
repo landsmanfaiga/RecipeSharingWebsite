@@ -34,7 +34,7 @@ const Categories = () => {
                 <form className="mb-4" onSubmit={onSubmitClick}>
                     <div className="input-group">
                         <input type="text" className="form-control" placeholder="Add new category" value={category} onChange={(e) => setCategory(e.target.value)} />
-                        <button type="submit" className="btn btn-primary">Add</button>
+                        <button type="submit" className="btn btn-info" style={{ color: "rgb(245, 245, 245)" }}>Add</button>
                     </div>
                 </form>
                 <ul className="list-group shadow-sm">

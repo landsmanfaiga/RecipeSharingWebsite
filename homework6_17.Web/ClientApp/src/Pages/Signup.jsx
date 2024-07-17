@@ -30,7 +30,7 @@ const Signup = () => {
             <main role="main" className="pb-3">
                 <div className="row">
                     <div className="col-md-6 offset-md-3 bg-light p-4 rounded shadow">
-                        <h3>Sign up for a new account</h3>
+                        <h3 style={{textAlign: 'center'} }>Sign up for a new account</h3>
                         <form onSubmit={onSubmit}>
                             <input type="text" name="firstName" placeholder="First Name" className="form-control" value={firstName} onChange={onTextChange} />
                             <br />
@@ -40,7 +40,7 @@ const Signup = () => {
                             <br />
                             <input type="password" name="password" placeholder="Password" className="form-control" value={password} onChange={onTextChange} />
                             <br />
-                            <button className="btn btn-primary">Signup</button>
+                            <button className="btn btn-info d-flex w-100 justify-content-center align-self-center" style={{ color: "rgb(245, 245, 245)" }}>Signup</button>
                         </form>
                     </div>
                 </div>

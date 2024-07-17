@@ -53,7 +53,7 @@ const Login = () => {
                             <input type="text" name="email" placeholder="Email" className="form-control" value={email} onChange={onChange} />
                             <br />
                             <input type="password" name="password" placeholder="Password" className="form-control" value={password} onChange={onChange} />
-                            <br /><button className="btn btn-info d-flex w-100 justify-content-center align-self-center">Login</button>
+                            <br /><button className="btn btn-info d-flex w-100 justify-content-center align-self-center" style={{ color: "rgb(245, 245, 245)" }}>Login</button>
                         </form>
                         <Link to="/signup" className="d-flex w-100 justify-content-center align-self-center" style={{ color: "rgb(35, 170, 200)"} }>Sign up for a new account</Link>
                     </div>
