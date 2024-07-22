@@ -56,7 +56,30 @@ namespace homework6_17.Data
         public List<Comment> GetComments(int id)
         {
             var context = new RecipeDataContext(_connectionString);
-            return context.Comments.Where(c => c.RecipeId == id).ToList();
+            return context.Comments.Where(c => c.RecipeId == id).OrderByDescending(c => c.Id).ToList();
+        }
+
+        public List<Recipe> Search(string text)
+        {
+            var context = new RecipeDataContext(_connectionString);
+            return context.Recipes.Where(r => r.Title.Contains(text) || r.Category.Name.Contains(text)).Include(r=>r.Category).ToList();
+
+        }
+
+        public List<Recipe> SortMostRecent()
+        {
+            var context = new RecipeDataContext (_connectionString);
+            return context.Recipes.Include(r => r.Category).Where(r => r.SharePublicly == true).OrderByDescending(r => r.Id).ToList();
+        }
+        public List<Recipe> SortMostLiked()
+        {
+            var context = new RecipeDataContext(_connectionString);
+            return context.Recipes.Include(r => r.Category).Where(r => r.SharePublicly == true).OrderByDescending(r => r.Comments.Count).ToList();
+        }
+        public List<Recipe> SortAtoZ()
+        {
+            var context = new RecipeDataContext(_connectionString);
+            return context.Recipes.Include(r => r.Category).Where(r => r.SharePublicly == true).OrderBy(r => r.Title).ToList();
         }
     }
 

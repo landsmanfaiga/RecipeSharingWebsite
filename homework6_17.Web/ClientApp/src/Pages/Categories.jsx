@@ -28,7 +28,7 @@ const Categories = () => {
     }
 
     return (<>
-        <div className="container">
+        <div className="container" style={{marginTop: 80} }>
             <div className="container mt-5">
                 <h2 className="mb-4 text-center">Categories</h2>
                 <form className="mb-4" onSubmit={onSubmitClick}>

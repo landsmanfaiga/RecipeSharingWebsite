@@ -5,7 +5,7 @@ const RecipePreview = ({ id, title, imageUrl, category, ingredients, steps, shar
 
     if (fromAdd) {
         return (<>
-            <div className="col-md-4 mb-4" key={id}>
+            <div className="col-md-4 mb-4 offset-1" key={id}>
                 <div className="card shadow-sm h-200" style={{
                     position: "sticky",
                     top: 20,

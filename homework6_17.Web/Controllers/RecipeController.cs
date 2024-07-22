@@ -68,6 +68,30 @@ namespace homework6_17.Web.Controllers
              return repo.GetRecipe(id, userId);
         }
 
+        [HttpGet]
+        [Route("search")]
+        public List<Recipe> Search(string text)
+        {
+            var repo = new RecipeRepo(_connectionString);
+            return repo.Search(text);
+        }
+
+        [HttpGet]
+        [Route("sort")]
+        public List<Recipe> Sort(int value)
+        {
+            var repo = new RecipeRepo(_connectionString);
+            if(value == 1)
+            {
+                return repo.SortAtoZ();
+            }
+            else if(value == 2)
+            {
+                return repo.SortMostRecent();
+            }
+            return repo.SortMostLiked();
+        }
+
 
         [HttpPost]
         [Authorize]

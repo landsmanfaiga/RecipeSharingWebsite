@@ -142,10 +142,11 @@ const Recipe = () => {
         </div>}
         {recipe.sharePublicly && <div className="col-md-4 mb-4 offset-3" style={{ marginTop: 20 }}>
             {!user && <span className="d-flex w-100 justify-content-center align-self-center offset-3" style={{ color: "rgb(170, 170, 170)", fontSize: 20 }}>Sign in to rate this recipe</span>}
-            {user && !isRate && <button type="button" className="btn btn-info" style={{ color: "rgb(245, 245, 245)" }} onClick={() => setIsRate(true)}>Rate this Recipe</button>}
+            {user && !isRate && <button type="button" className="btn btn-info offset-2" style={{ color: "rgb(245, 245, 245)" }} onClick={() => setIsRate(true)}>Rate this Recipe</button>}
             {user && isRate && <>
-                <textarea className="form-control mb-2" rows="3" value={comment} onChange={(e) => setComment(e.target.value)} style={{ width: 470 }}></textarea>
-                <button type="button" className="btn btn-info" style={{ color: "rgb(245, 245, 245)" }} onClick={onAddClick}>Add Comment</button>
+                <textarea className="form-control mb-2 offset-2" rows="3" value={comment} onChange={(e) => setComment(e.target.value)} style={{ width: 470 }}></textarea>
+                <button type="button" className="btn btn-info offset-2" style={{ color: "rgb(245, 245, 245)" }} onClick={onAddClick}>Add Comment</button>
+                <button type="botton" className="btn btn-danger" style={{ color: "rgb(245, 245, 245)" }} onClick={()=>setIsRate(false)}>X</button>
             </>}
             {comments.map(c => (
                 <div className="container offset-2" >
