@@ -13,7 +13,8 @@ const Recipe = () => {
         title: '',
         imageUrl: '',
         category: {
-            name: ''
+            name: '',
+            user: {}
         },
         ingredients: '',
         steps: '',
@@ -136,6 +137,7 @@ const Recipe = () => {
                                 {rating < 1 && < FaRegHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
                             </div>
                             <h1 className="text-center" style={{ color: "rgb(35, 170, 200)", fontSize: 35, style: "underline" }}>{recipe.title}</h1>
+                            <span style={{ textAlign: 'center'}}>Shared by: {recipe.category.user.firstName} {recipe.category.user.lastName}</span>
                             <div className="d-flex justify-content-center mb-3">
                                 {recipe.imageUrl && <img src={`/api/recipe/viewimage?imageUrl=${recipe.imageUrl}`} alt="Recipe Preview" className="img-fluid" style={{
                                     width: 300,

@@ -35,7 +35,7 @@ const MyRecipes = () => {
                     <h1 className="display-4">{user.firstName} {user.lastName}'s Recipes:</h1>
                 </div>
                 <div className="row">
-                    {recipes.map(r => (
+                    {recipes && recipes.map(r => (
                         <RecipePreview id={r.id}
                             title={r.title}
                             imageUrl={r.imageUrl}
@@ -45,6 +45,11 @@ const MyRecipes = () => {
                             sharePublicly={r.sharePublicly}
                             fromAdd={false}></RecipePreview>
                     ))}
+                    {!recipes.length && <div className='container col-md-8 mb-4' style={{ marginTop: 75 }}>
+                        <div>
+                            <h1 style={{ textAlign: 'center', fontSize: 30 }}>There are no recipes for this user</h1>
+                        </div>
+                    </div> }
 
                 </div>
             </div>

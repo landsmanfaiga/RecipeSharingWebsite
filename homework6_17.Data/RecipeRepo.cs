@@ -18,7 +18,7 @@ namespace homework6_17.Data
         public List<Recipe> GetAll()
         {
             var context = new RecipeDataContext(_connectionString);
-            return context.Recipes.Include(r => r.Category).Where(r => r.SharePublicly == true).Take(6).ToList();
+            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.SharePublicly == true).Take(6).ToList();
         }
 
         public void AddRecipe(Recipe recipe)
@@ -37,7 +37,7 @@ namespace homework6_17.Data
         public Recipe GetRecipe(int id, int userId)
         {
             var context = new RecipeDataContext(_connectionString);
-            Recipe r = context.Recipes.Include(r => r.Category).FirstOrDefault(r => r.Id == id);
+            Recipe r = context.Recipes.Include(r => r.Category).Include(c => c.Category.User).FirstOrDefault(r => r.Id == id);
             if (r.SharePublicly || (userId != 0 && userId == r.Category.UserId))
             {
                 return r;
@@ -62,24 +62,24 @@ namespace homework6_17.Data
         public List<Recipe> Search(string text)
         {
             var context = new RecipeDataContext(_connectionString);
-            return context.Recipes.Where(r => r.Title.Contains(text) || r.Category.Name.Contains(text)).Include(r=>r.Category).ToList();
+            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.Title.Contains(text) || r.Category.Name.Contains(text)).Include(r=>r.Category).ToList();
 
         }
 
         public List<Recipe> SortMostRecent()
         {
             var context = new RecipeDataContext (_connectionString);
-            return context.Recipes.Include(r => r.Category).Where(r => r.SharePublicly == true).OrderByDescending(r => r.Id).ToList();
+            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.SharePublicly == true).OrderByDescending(r => r.Id).ToList();
         }
         public List<Recipe> SortMostLiked()
         {
             var context = new RecipeDataContext(_connectionString);
-            return context.Recipes.Include(r => r.Category).Where(r => r.SharePublicly == true).OrderByDescending(r => r.Rating).ToList();
+            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.SharePublicly == true).OrderByDescending(r => r.Rating).ToList();
         }
         public List<Recipe> SortAtoZ()
         {
             var context = new RecipeDataContext(_connectionString);
-            return context.Recipes.Include(r => r.Category).Where(r => r.SharePublicly == true).OrderBy(r => r.Title).ToList();
+            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.SharePublicly == true).OrderBy(r => r.Title).ToList();
         }
 
 
