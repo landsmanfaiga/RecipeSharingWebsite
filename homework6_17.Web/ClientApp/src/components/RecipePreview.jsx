@@ -87,7 +87,7 @@ const RecipePreview = ({ id, title, imageUrl, category, ingredients, steps, shar
 
                             <div style={{ flex: "1 1 auto", overflowY: "auto" }}>
                         <p>
-                            <strong>Category:</strong>{category.name}
+                            <strong>Category:</strong> {category.name}
                                                        </p>
                                 <p>
                                     <strong>Ingredients:</strong>
