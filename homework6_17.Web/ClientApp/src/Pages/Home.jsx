@@ -18,11 +18,14 @@ const Home = () => {
         setRecipes(data);
     };
     const onSubmitClick = async () => {
-        setIsLoading(true);
-        const { data } = await axios.get(`/api/recipe/search?text=${text}`)
-        setRecipes(data);
-        setText('');
-        setIsLoading(false);
+        if (text !== '') {
+            setIsLoading(true);
+            const { data } = await axios.get(`/api/recipe/search?text=${text}`)
+            setRecipes(data);
+            setText('');
+            setIsLoading(false);
+        }
+        
     }
     const onSortChange = async (e) => {
         if (e.target.value > 0) {
@@ -71,7 +74,7 @@ const Home = () => {
                                 sharePublicly={r.sharePublicly}
                                 fromAdd={false}></RecipePreview>
                         ))}
-                        {!recipes.length && <div className='container col-md-8 mb-4' style={{ marginTop: 75 }}>
+                        {!isLoading && !recipes.length && <div className='container col-md-8 mb-4' style={{ marginTop: 75 }}>
                             <div>
                                 <h1 style={{ textAlign: 'center', fontSize: 30 }}>Sorry, there are no recipes that match your search</h1>
                             </div>

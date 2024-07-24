@@ -92,6 +92,27 @@ namespace homework6_17.Web.Controllers
             return repo.SortMostLiked();
         }
 
+        [HttpGet]
+        [Route("getrating")]
+        public decimal GetRating(int id)
+        {
+            var repo = new RecipeRepo(_connectionString);
+            List<Comment> comments = repo.GetComments(id);
+            if (comments.Count == 0)
+            {
+                return 0;
+            }
+            int r = 0;
+            foreach (var item in comments)
+            {
+                r += item.Rate;
+            }
+            decimal Rating = r / comments.Count;
+            repo.UpdateRecipe(id, Rating);
+            return r / comments.Count;
+        }
+
+
 
         [HttpPost]
         [Authorize]

@@ -19,6 +19,7 @@ namespace homework6_17.Data
         public string Steps {  get; set; }
         public string ImageUrl { get; set; }
         public bool SharePublicly { get; set; }
+        public decimal Rating { get; set; }
 
         [JsonIgnore]
         public List<Comment> Comments { get; set; }
@@ -32,5 +33,6 @@ namespace homework6_17.Data
         public string Commenter {  get; set; }
         public string Description {  get; set; }
         public int RecipeId { get; set; }
+        public int Rate { get; set; }
     }
 }

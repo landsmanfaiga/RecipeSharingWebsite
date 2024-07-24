@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using homework6_17.Data;
 
@@ -10,9 +11,11 @@ using homework6_17.Data;
 namespace homework6_17.Data.Migrations
 {
     [DbContext(typeof(RecipeDataContext))]
-    partial class RecipeDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240722224446_rate")]
+    partial class rate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,9 +88,6 @@ namespace homework6_17.Data.Migrations
 
                     b.Property<string>("Ingredients")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Rating")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("SharePublicly")
                         .HasColumnType("bit");

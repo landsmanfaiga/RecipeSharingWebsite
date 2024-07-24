@@ -2,6 +2,7 @@
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { BsCheckCircleFill, BsListUl, BsFillPersonFill, BsDownload } from "react-icons/bs";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useUser } from "../UserContext";
 
 const Recipe = () => {
@@ -17,17 +18,26 @@ const Recipe = () => {
         ingredients: '',
         steps: '',
         sharePublicly: false,
+        rating: 0
     });
     const [isLoading, setIsLoading] = useState(true);
     const { user } = useUser();
     const [isRate, setIsRate] = useState(false);
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState([]);
+    const [selectedHearts, setSelectedHearts] = useState([]);
+    const [rating, setRating] = useState(0);
 
     const getComments = async () => {
         const { data } = await axios.get(`/api/recipe/getcomments?id=${id}`)
         setComments(data);
     }
+
+    const getRating = async () => {
+        const { data } = await axios.get(`/api/recipe/getrating?id=${id}`)
+        setRating(data);
+    }
+
 
     useEffect(() => {
         const getRecipe = async () => {
@@ -37,8 +47,8 @@ const Recipe = () => {
 
         getRecipe();
         getComments();
+        getRating();
         setIsLoading(false);
-
 
     }, [])
 
@@ -57,15 +67,35 @@ const Recipe = () => {
     }
 
     const onAddClick = async () => {
-        const rlComment = {
-            commenter: `${user.firstName} ${user.lastName}`,
-            description: comment,
-            recipeId: recipe.id
+        if (comment !== '') {
+            const rlComment = {
+                commenter: `${user.firstName} ${user.lastName}`,
+                description: comment,
+                recipeId: recipe.id,
+                rate: selectedHearts.length
+            }
+            await axios.post('/api/recipe/addcomment', rlComment);
+            setComment('');
+            setSelectedHearts([]);
+            setIsRate(false);
+            getComments();
+            getRating();
         }
-        await axios.post('/api/recipe/addcomment', rlComment);
-        setComment('');
+       
+    }
+
+    const onHeartClick = (n) => {
+        if (!selectedHearts.some(s => s == n)) {
+            setSelectedHearts([...selectedHearts, n])
+        }
+        else {
+            setSelectedHearts([...selectedHearts.filter(s => s!== n)])
+        }
+    }
+
+    const onXClick = () => {
         setIsRate(false);
-        getComments();
+        setSelectedHearts([]);
     }
 
 
@@ -87,11 +117,24 @@ const Recipe = () => {
                 borderRadius: 10,
                 width: 500
             }}>
+              
                 <div className="col-md-4 mb-4" key={id}>
                     <div className="card shadow-sm h-200" style={{ borderRadius: 15, width: 480 }}>
                         <div className="card-body d-flex flex-column" style={{ overflow: "hidden" }}>
                             {!user && <span className="text-center" style={{ color: "rgb(170, 170, 170)" }}>Sign in to download this recipe</span>}
                             {user && <BsDownload onClick={onDownloadClick} className="h2" style={{ marginRight: 30, cursor: 'pointer', textAlign: 'right' }} />}
+                            <div>
+                                {rating > 0 && < FaHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                                {rating > 1 && < FaHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                                {rating > 2 && < FaHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                                {rating > 3 && < FaHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                                {rating > 4 && < FaHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                                {rating < 5 && < FaRegHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                                {rating < 4 && < FaRegHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                                {rating < 3 && < FaRegHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                                {rating < 2 && < FaRegHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                                {rating < 1 && < FaRegHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                            </div>
                             <h1 className="text-center" style={{ color: "rgb(35, 170, 200)", fontSize: 35, style: "underline" }}>{recipe.title}</h1>
                             <div className="d-flex justify-content-center mb-3">
                                 {recipe.imageUrl && <img src={`/api/recipe/viewimage?imageUrl=${recipe.imageUrl}`} alt="Recipe Preview" className="img-fluid" style={{
@@ -145,8 +188,20 @@ const Recipe = () => {
             {user && !isRate && <button type="button" className="btn btn-info offset-2" style={{ color: "rgb(245, 245, 245)" }} onClick={() => setIsRate(true)}>Rate this Recipe</button>}
             {user && isRate && <>
                 <textarea className="form-control mb-2 offset-2" rows="3" value={comment} onChange={(e) => setComment(e.target.value)} style={{ width: 470 }}></textarea>
+                <div>
+                    {!selectedHearts.some(s => s == 1) && < FaRegHeart className="offset-2" style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(1)} />}
+                    {selectedHearts.some(s => s == 1) && < FaHeart className="offset-2" style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(1)} />}
+                    {!selectedHearts.some(s => s == 2) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(2)} />}
+                    {selectedHearts.some(s => s == 2) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(2)} />}
+                    {!selectedHearts.some(s => s == 3) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(3)} />}
+                    {selectedHearts.some(s => s == 3) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(3)} />}
+                    {!selectedHearts.some(s => s == 4) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(4)} />}
+                    {selectedHearts.some(s => s == 4) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(4)} />}
+                    {!selectedHearts.some(s => s == 5) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(5)} />}
+                    {selectedHearts.some(s => s == 5) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(5)} />}
+                 </div>
                 <button type="button" className="btn btn-info offset-2" style={{ color: "rgb(245, 245, 245)" }} onClick={onAddClick}>Add Comment</button>
-                <button type="botton" className="btn btn-danger" style={{ color: "rgb(245, 245, 245)" }} onClick={()=>setIsRate(false)}>X</button>
+                <button type="botton" className="btn btn-danger" style={{ color: "rgb(245, 245, 245)" }} onClick={onXClick}>X</button>
             </>}
             {comments.map(c => (
                 <div className="container offset-2" >

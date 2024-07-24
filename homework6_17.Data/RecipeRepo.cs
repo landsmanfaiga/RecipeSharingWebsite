@@ -74,12 +74,22 @@ namespace homework6_17.Data
         public List<Recipe> SortMostLiked()
         {
             var context = new RecipeDataContext(_connectionString);
-            return context.Recipes.Include(r => r.Category).Where(r => r.SharePublicly == true).OrderByDescending(r => r.Comments.Count).ToList();
+            return context.Recipes.Include(r => r.Category).Where(r => r.SharePublicly == true).OrderByDescending(r => r.Rating).ToList();
         }
         public List<Recipe> SortAtoZ()
         {
             var context = new RecipeDataContext(_connectionString);
             return context.Recipes.Include(r => r.Category).Where(r => r.SharePublicly == true).OrderBy(r => r.Title).ToList();
+        }
+
+
+        public void UpdateRecipe(int id, decimal rating)
+        {
+            var context = new RecipeDataContext(_connectionString);
+            var recipe = context.Recipes.FirstOrDefault(r => r.Id == id);
+            recipe.Rating = rating;
+            context.Recipes.Update(recipe);
+            context.SaveChanges();
         }
     }
 
