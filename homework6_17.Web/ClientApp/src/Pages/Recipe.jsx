@@ -87,10 +87,19 @@ const Recipe = () => {
 
     const onHeartClick = (n) => {
         if (!selectedHearts.some(s => s == n)) {
-            setSelectedHearts([...selectedHearts, n])
+            { n == 5 && setSelectedHearts([...selectedHearts, 5, 4, 3, 2, 1 ]) }
+            { n == 4 && setSelectedHearts([...selectedHearts, 4, 3, 2, 1]) }
+            { n == 3 && setSelectedHearts([...selectedHearts, 3, 2, 1]) }
+            { n == 2 && setSelectedHearts([...selectedHearts, 2, 1]) }
+            { n == 1 && setSelectedHearts([...selectedHearts, 1]) }
         }
         else {
-            setSelectedHearts([...selectedHearts.filter(s => s!== n)])
+            { n == 5 && setSelectedHearts([])}
+            { n == 4 && setSelectedHearts([1, 2, 3, 4]) }
+            { n == 3 && setSelectedHearts([1, 2, 3]) }
+            { n == 2 && setSelectedHearts([1, 2]) }
+            { n == 1 && selectedHearts.length > 1 && setSelectedHearts([1]) }
+            {n == 1 && selectedHearts.length == 1 && setSelectedHearts([]) }
         }
     }
 
@@ -122,8 +131,7 @@ const Recipe = () => {
                 <div className="col-md-4 mb-4" key={id}>
                     <div className="card shadow-sm h-200" style={{ borderRadius: 15, width: 480 }}>
                         <div className="card-body d-flex flex-column" style={{ overflow: "hidden" }}>
-                            {!user && <span className="text-center" style={{ color: "rgb(170, 170, 170)" }}>Sign in to download this recipe</span>}
-                            {user && <BsDownload onClick={onDownloadClick} className="h2" style={{ marginRight: 30, cursor: 'pointer', textAlign: 'right' }} />}
+            
                             <div>
                                 {rating > 0 && < FaHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
                                 {rating > 1 && < FaHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
@@ -135,7 +143,11 @@ const Recipe = () => {
                                 {rating < 3 && < FaRegHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
                                 {rating < 2 && < FaRegHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
                                 {rating < 1 && < FaRegHeart style={{ color: "rgb(35, 170, 200)", fontSize: 25 }} />}
+                                {user && <BsDownload onClick={onDownloadClick} className="h2" style={{ marginLeft: 395, cursor: 'pointer', textAlign: 'left' }} />}
+
                             </div>
+                            {!user && <span className="text-center" style={{ color: "rgb(170, 170, 170)" }}>Sign in to download this recipe</span>}
+                       
                             <h1 className="text-center" style={{ color: "rgb(35, 170, 200)", fontSize: 35, style: "underline" }}>{recipe.title}</h1>
                             <span style={{ textAlign: 'center'}}>Shared by: {recipe.category.user.firstName} {recipe.category.user.lastName}</span>
                             <div className="d-flex justify-content-center mb-3">
@@ -189,19 +201,20 @@ const Recipe = () => {
             {!user && <span className="d-flex w-100 justify-content-center align-self-center offset-3" style={{ color: "rgb(170, 170, 170)", fontSize: 20 }}>Sign in to rate this recipe</span>}
             {user && !isRate && <button type="button" className="btn btn-info offset-2" style={{ color: "rgb(245, 245, 245)" }} onClick={() => setIsRate(true)}>Rate this Recipe</button>}
             {user && isRate && <>
-                <textarea className="form-control mb-2 offset-2" rows="3" value={comment} onChange={(e) => setComment(e.target.value)} style={{ width: 470 }}></textarea>
                 <div>
-                    {!selectedHearts.some(s => s == 1) && < FaRegHeart className="offset-2" style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(1)} />}
-                    {selectedHearts.some(s => s == 1) && < FaHeart className="offset-2" style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(1)} />}
-                    {!selectedHearts.some(s => s == 2) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(2)} />}
-                    {selectedHearts.some(s => s == 2) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(2)} />}
-                    {!selectedHearts.some(s => s == 3) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(3)} />}
-                    {selectedHearts.some(s => s == 3) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(3)} />}
-                    {!selectedHearts.some(s => s == 4) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(4)} />}
-                    {selectedHearts.some(s => s == 4) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(4)} />}
+                    {!selectedHearts.some(s => s == 1 || s == 2 || s == 3 || s == 4 || s == 5) && < FaRegHeart className="offset-2" style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(1)} />}
+                    {selectedHearts.some(s => s == 1 || s == 2 || s == 3 || s == 4 || s == 5) && < FaHeart className="offset-2" style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(1)} />}
+                    {!selectedHearts.some(s => s == 2 || s == 3 || s == 4 || s == 5) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(2)} />}
+                    {selectedHearts.some(s => s == 2 || s == 3 || s == 4 || s == 5) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(2)} />}
+                    {!selectedHearts.some(s => s == 3 || s == 4 || s == 5) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(3)} />}
+                    {selectedHearts.some(s => s == 3 || s == 4 || s == 5) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(3)} />}
+                    {!selectedHearts.some(s => s == 4|| s == 5) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(4)} />}
+                    {selectedHearts.some(s => s == 4 || s == 5) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(4)} />}
                     {!selectedHearts.some(s => s == 5) && < FaRegHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(5)} />}
                     {selectedHearts.some(s => s == 5) && < FaHeart style={{ color: "rgb(35, 170, 200)" }} onClick={() => onHeartClick(5)} />}
-                 </div>
+                </div>
+                <textarea className="form-control mb-2 offset-2" rows="3" value={comment} onChange={(e) => setComment(e.target.value)} style={{ width: 470 }}></textarea>
+               
                 <button type="button" className="btn btn-info offset-2" style={{ color: "rgb(245, 245, 245)" }} onClick={onAddClick}>Add Comment</button>
                 <button type="botton" className="btn btn-danger" style={{ color: "rgb(245, 245, 245)" }} onClick={onXClick}>X</button>
             </>}
