@@ -1,7 +1,7 @@
 <div>
 <img width="794" alt="Screenshot 2024-07-25 153336" src="https://github.com/user-attachments/assets/34953aed-5793-4829-a430-68fdf64b1fbd">
 </div>
-<div>
+<div style={{marginTop: 20}}>
 <img width="379" alt="Screenshot 2024-08-05 133542" src="https://github.com/user-attachments/assets/5a749131-f933-45e9-9c87-fc4443f321d1">
 </div>
 <div>
