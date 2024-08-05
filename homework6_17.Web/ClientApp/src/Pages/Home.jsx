@@ -9,6 +9,7 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [text, setText] = useState('');
 
+
     useEffect(() => {
         getRecipes();
         setIsLoading(false);
@@ -24,16 +25,52 @@ const Home = () => {
             setRecipes(data);
             setText('');
             setIsLoading(false);
-        }
-        
+            //let arr = [];
+            //recipes.forEach(r => r.includes(text) && arr.push(r))
+            //console.log(arr);
+        } 
     }
-    const onSortChange = async (e) => {
-        if (e.target.value > 0) {
-            setIsLoading(true);
-            const { data } = await axios.get(`/api/recipe/sort?value=${e.target.value}`);
-            setRecipes(data);
-            setIsLoading(false);
-        }
+
+    const onSortChange = async(e) => {
+        setIsLoading(true);
+        const { data } = await axios.get(`/api/recipe/sort?value=${e.target.value}`)
+        setRecipes(data);
+        setIsLoading(false);
+        //setIsLoading(true);
+        //if (e.target.value == 1) {
+        //    setRecipes(recipes.sort(function (a, b) {
+        //        if (a.title < b.title) {
+        //            return -1;
+        //        }
+        //        if (a.title > b.title) {
+        //            return 1;
+        //        }
+        //        return 0;
+        //    }))
+        //}
+        //else if (e.target.value == 2) {
+        //    setRecipes(recipes.sort(function (a, b) {
+        //        if (a.id < b.id) {
+        //            return -1;
+        //        }
+        //        if (a.id > b.id) {
+        //            return 1;
+        //        }
+        //        return 0;
+        //    }))
+        //}
+        //else if (e.target.value == 3) {
+        //    setRecipes(recipes.sort(function (a, b) {
+        //        if (a.rating < b.rating) {
+        //            return 1;
+        //        }
+        //        if (a.rating > b.rating) {
+        //            return -1;
+        //        }
+        //        return 0;
+        //    }))
+        //}
+        //setIsLoading(false);
     }
 
     if (isLoading) {

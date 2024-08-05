@@ -81,15 +81,16 @@ namespace homework6_17.Web.Controllers
         public List<Recipe> Sort(int value)
         {
             var repo = new RecipeRepo(_connectionString);
-            if(value == 1)
+            if (value == 1)
             {
                 return repo.SortAtoZ();
             }
-            else if(value == 2)
+            else if (value == 2)
             {
                 return repo.SortMostRecent();
             }
             return repo.SortMostLiked();
+
         }
 
         [HttpGet]

@@ -87,19 +87,22 @@ const Recipe = () => {
 
     const onHeartClick = (n) => {
         if (!selectedHearts.some(s => s == n)) {
-            { n == 5 && setSelectedHearts([...selectedHearts, 5, 4, 3, 2, 1 ]) }
-            { n == 4 && setSelectedHearts([...selectedHearts, 4, 3, 2, 1]) }
-            { n == 3 && setSelectedHearts([...selectedHearts, 3, 2, 1]) }
-            { n == 2 && setSelectedHearts([...selectedHearts, 2, 1]) }
-            { n == 1 && setSelectedHearts([...selectedHearts, 1]) }
+            { n == 5 && setSelectedHearts([5, 4, 3, 2, 1 ]) }
+            { n == 4 && setSelectedHearts([4, 3, 2, 1]) }
+            { n == 3 && setSelectedHearts([3, 2, 1]) }
+            { n == 2 && setSelectedHearts([2, 1]) }
+            { n == 1 && setSelectedHearts([1]) }
         }
         else {
             { n == 5 && setSelectedHearts([])}
-            { n == 4 && setSelectedHearts([1, 2, 3, 4]) }
-            { n == 3 && setSelectedHearts([1, 2, 3]) }
-            { n == 2 && setSelectedHearts([1, 2]) }
+            { n == 4 && selectedHearts.length > 4 && setSelectedHearts([1, 2, 3, 4]) }
+            { n == 4 && selectedHearts.length == 4 && setSelectedHearts([]) }
+            { n == 3 && selectedHearts.length > 3 && setSelectedHearts([1, 2, 3]) }
+            { n == 3 && selectedHearts.lenth == 3 && setSelectedHearts([]) }
+            { n == 2 && selectedHearts.length > 2 && setSelectedHearts([1, 2]) }
+            { n == 2 && selectedHearts.length == 2 && setSelectedHearts([]) }
             { n == 1 && selectedHearts.length > 1 && setSelectedHearts([1]) }
-            {n == 1 && selectedHearts.length == 1 && setSelectedHearts([]) }
+            { n == 1 && selectedHearts.length == 1 && setSelectedHearts([]) }
         }
     }
 
