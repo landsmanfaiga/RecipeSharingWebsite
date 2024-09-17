@@ -43,7 +43,8 @@ const MyRecipes = () => {
                             ingredients={r.ingredients}
                             steps={r.steps}
                             sharePublicly={r.sharePublicly}
-                            fromAdd={false}></RecipePreview>
+                            fromAdd={false}
+                            home={false}></RecipePreview>
                     ))}
                     {!recipes.length && <div className='container col-md-8 mb-4' style={{ marginTop: 75 }}>
                         <div>

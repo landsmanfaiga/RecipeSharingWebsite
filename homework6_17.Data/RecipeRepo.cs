@@ -62,7 +62,7 @@ namespace homework6_17.Data
         public List<Recipe> Search(string text)
         {
             var context = new RecipeDataContext(_connectionString);
-            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.Title.Contains(text) || r.Category.Name.Contains(text)).Include(r=>r.Category).ToList();
+            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.Title.Contains(text) || r.Category.Name.Contains(text)).ToList();
 
         }
 

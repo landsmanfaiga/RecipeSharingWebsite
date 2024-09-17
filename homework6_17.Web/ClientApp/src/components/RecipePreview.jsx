@@ -1,7 +1,7 @@
 ﻿import { BsCheckCircleFill, BsListUl, BsFillPersonFill } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 
-const RecipePreview = ({ id, title, imageUrl, category, ingredients, steps, sharePublicly, fromAdd }) => {
+const RecipePreview = ({ id, title, imageUrl, category, ingredients, steps, sharePublicly, fromAdd, home }) => {
 
     if (fromAdd) {
         return (<>
@@ -76,7 +76,7 @@ const RecipePreview = ({ id, title, imageUrl, category, ingredients, steps, shar
                         <Link to={`/recipe/${id}`} style={{ color: "rgb(35, 170, 200)", fontSize: 23} }
                     className="text-center">{title}
                     </Link>   
-                    <span style={{textAlign: 'center'} }>Shared by: {category.user.firstName} {category.user.lastName}</span>
+                    {home && <span style={{ textAlign: 'center' }}>Shared by: {category.user.firstName} {category.user.lastName}</span>}
                     <div className="d-flex justify-content-center mb-3">
                         <img src={`/api/recipe/viewimage?imageUrl=${imageUrl}`} alt="Recipe Preview" className="img-fluid" style={{
                                 width: 150,

@@ -8,6 +8,7 @@ using RazorLight;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using Newtonsoft.Json.Linq;
 
 namespace homework6_17.Web.Controllers
 {
@@ -74,6 +75,16 @@ namespace homework6_17.Web.Controllers
         {
             var repo = new RecipeRepo(_connectionString);
             return repo.Search(text);
+            //List<Recipe> recipes = repo.GetAll();
+            //List<Recipe> searched = new List<Recipe>();
+            //foreach (var item in recipes)
+            //{
+            //    if (item.Title.Contains(text) /*|| item.Category.Name.Contains(text)*/)
+            //    {
+            //        searched.Add(item);
+            //    }
+            //}
+            //return searched;
         }
 
         [HttpGet]
@@ -90,7 +101,6 @@ namespace homework6_17.Web.Controllers
                 return repo.SortMostRecent();
             }
             return repo.SortMostLiked();
-
         }
 
         [HttpGet]

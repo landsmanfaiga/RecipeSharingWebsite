@@ -33,44 +33,20 @@ const Home = () => {
 
     const onSortChange = async(e) => {
         setIsLoading(true);
-        const { data } = await axios.get(`/api/recipe/sort?value=${e.target.value}`)
-        setRecipes(data);
+        if (e.target.value == 1) {
+            setRecipes([...recipes].sort(function (a, b) {
+                if (a.title < b.title) return -1;
+                return 1;
+            }))
+        }
+        else if (e.target.value == 2) {
+            setRecipes([...recipes].sort(function (a, b) { return a.id - b.id }))
+        }
+        else if (e.target.value == 3) {
+            setRecipes([...recipes].sort(function (a, b) { return b.rating - a.rating }))
+        }
         setIsLoading(false);
-        //setIsLoading(true);
-        //if (e.target.value == 1) {
-        //    setRecipes(recipes.sort(function (a, b) {
-        //        if (a.title < b.title) {
-        //            return -1;
-        //        }
-        //        if (a.title > b.title) {
-        //            return 1;
-        //        }
-        //        return 0;
-        //    }))
-        //}
-        //else if (e.target.value == 2) {
-        //    setRecipes(recipes.sort(function (a, b) {
-        //        if (a.id < b.id) {
-        //            return -1;
-        //        }
-        //        if (a.id > b.id) {
-        //            return 1;
-        //        }
-        //        return 0;
-        //    }))
-        //}
-        //else if (e.target.value == 3) {
-        //    setRecipes(recipes.sort(function (a, b) {
-        //        if (a.rating < b.rating) {
-        //            return 1;
-        //        }
-        //        if (a.rating > b.rating) {
-        //            return -1;
-        //        }
-        //        return 0;
-        //    }))
-        //}
-        //setIsLoading(false);
+        console.log(recipes);
     }
 
     if (isLoading) {
@@ -109,7 +85,8 @@ const Home = () => {
                                 ingredients={r.ingredients}
                                 steps={r.steps}
                                 sharePublicly={r.sharePublicly}
-                                fromAdd={false}></RecipePreview>
+                                fromAdd={false}
+                                home={true}></RecipePreview>
                         ))}
                         {!isLoading && !recipes.length && <div className='container col-md-8 mb-4' style={{ marginTop: 75 }}>
                             <div>
