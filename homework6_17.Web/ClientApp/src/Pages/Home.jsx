@@ -7,6 +7,8 @@ const Home = () => {
 
     const [recipes, setRecipes] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [arr1, setArr1] = useState([]);
+    const [inArr, setInArr] = useState(false);
     const [text, setText] = useState('');
 
 
@@ -21,13 +23,13 @@ const Home = () => {
     const onSubmitClick = async () => {
         if (text !== '') {
             setIsLoading(true);
-            const { data } = await axios.get(`/api/recipe/search?text=${text}`)
-            setRecipes(data);
+            setInArr(true)
+            let arr = [];
+            recipes.forEach(r => (r.title.toLowerCase().includes(text.toLowerCase()) && arr.push(r)));
+            recipes.forEach(r => (r.category.name.toLowerCase().includes(text.toLowerCase()) && arr.push(r)));
+            setArr1(arr);
             setText('');
             setIsLoading(false);
-            //let arr = [];
-            //recipes.forEach(r => r.includes(text) && arr.push(r))
-            //console.log(arr);
         } 
     }
 
@@ -46,7 +48,6 @@ const Home = () => {
             setRecipes([...recipes].sort(function (a, b) { return b.rating - a.rating }))
         }
         setIsLoading(false);
-        console.log(recipes);
     }
 
     if (isLoading) {
@@ -77,7 +78,7 @@ const Home = () => {
                         <button type="submit" className="btn btn-info w-25 offset-4" style={{ color: "rgb(245, 245, 245)", marginTop: 10 }} onClick={onSubmitClick}>Search</button>
                     </div>
                     <div className="row" style={{ marginTop: 20 }}>
-                        {!!recipes.length && recipes.map(r => (
+                        {!!recipes.length && !arr1.length && !inArr && recipes.map(r => (
                             <RecipePreview id={r.id}
                                 title={r.title}
                                 imageUrl={r.imageUrl}
@@ -88,7 +89,19 @@ const Home = () => {
                                 fromAdd={false}
                                 home={true}></RecipePreview>
                         ))}
-                        {!isLoading && !recipes.length && <div className='container col-md-8 mb-4' style={{ marginTop: 75 }}>
+                        {!!arr1.length && arr1.map(r => (
+                            <RecipePreview id={r.id}
+                                title={r.title}
+                                imageUrl={r.imageUrl}
+                                category={r.category}
+                                ingredients={r.ingredients}
+                                steps={r.steps}
+                                sharePublicly={r.sharePublicly}
+                                fromAdd={false}
+                                home={true}></RecipePreview>
+                        ))}
+
+                        {!isLoading && (!recipes.length || (inArr && !arr1.length)) &&  <div className='container col-md-8 mb-4' style={{ marginTop: 75 }}>
                             <div>
                                 <h1 style={{ textAlign: 'center', fontSize: 30 }}>Sorry, there are no recipes that match your search</h1>
                             </div>

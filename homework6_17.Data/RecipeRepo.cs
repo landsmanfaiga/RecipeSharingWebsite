@@ -59,28 +59,8 @@ namespace homework6_17.Data
             return context.Comments.Where(c => c.RecipeId == id).OrderByDescending(c => c.Id).ToList();
         }
 
-        public List<Recipe> Search(string text)
-        {
-            var context = new RecipeDataContext(_connectionString);
-            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.Title.Contains(text) || r.Category.Name.Contains(text)).ToList();
 
-        }
 
-        public List<Recipe> SortMostRecent()
-        {
-            var context = new RecipeDataContext (_connectionString);
-            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.SharePublicly == true).OrderByDescending(r => r.Id).ToList();
-        }
-        public List<Recipe> SortMostLiked()
-        {
-            var context = new RecipeDataContext(_connectionString);
-            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.SharePublicly == true).OrderByDescending(r => r.Rating).ToList();
-        }
-        public List<Recipe> SortAtoZ()
-        {
-            var context = new RecipeDataContext(_connectionString);
-            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.SharePublicly == true).OrderBy(r => r.Title).ToList();
-        }
 
 
         public void UpdateRecipe(int id, decimal rating)
