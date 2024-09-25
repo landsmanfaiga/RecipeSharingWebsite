@@ -18,7 +18,7 @@ namespace homework6_17.Data
         public List<Recipe> GetAll()
         {
             var context = new RecipeDataContext(_connectionString);
-            return context.Recipes.Include(r => r.Category).Include(c => c.Category.User).Where(r => r.SharePublicly == true).Take(6).ToList();
+            return context.Recipes.OrderByDescending(r => r.Id).Include(r => r.Category).Include(c => c.Category.User).Where(r => r.SharePublicly == true).ToList();
         }
 
         public void AddRecipe(Recipe recipe)

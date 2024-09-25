@@ -149,7 +149,7 @@ const Recipe = () => {
                                 {user && <BsDownload onClick={onDownloadClick} className="h2" style={{ marginLeft: 395, cursor: 'pointer', textAlign: 'left' }} />}
 
                             </div>
-                            {!user && <span className="text-center" style={{ color: "rgb(170, 170, 170)" }}>Sign in to download this recipe</span>}
+                            {!user && <Link to="/login"className="text-center" style={{ color: "rgb(170, 170, 170)" }}>Sign in to download this recipe </Link>}
                        
                             <h1 className="text-center" style={{ color: "rgb(35, 170, 200)", fontSize: 35, style: "underline" }}>{recipe.title}</h1>
                             <span style={{ textAlign: 'center'}}>Shared by: {recipe.category.user.firstName} {recipe.category.user.lastName}</span>
@@ -201,7 +201,7 @@ const Recipe = () => {
             </div>
         </div>}
         {recipe.sharePublicly && <div className="col-md-4 mb-4 offset-3" style={{ marginTop: 20 }}>
-            {!user && <span className="d-flex w-100 justify-content-center align-self-center offset-3" style={{ color: "rgb(170, 170, 170)", fontSize: 20 }}>Sign in to rate this recipe</span>}
+            {!user && <Link to="/login" className="d-flex w-100 justify-content-center align-self-center offset-3" style={{ color: "rgb(170, 170, 170)", fontSize: 20 }}>Sign in to rate this recipe</Link>}
             {user && !isRate && <button type="button" className="btn btn-info offset-2" style={{ color: "rgb(245, 245, 245)" }} onClick={() => setIsRate(true)}>Rate this Recipe</button>}
             {user && isRate && <>
                 <div>
